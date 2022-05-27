@@ -5,10 +5,11 @@ async function filterPipe(...query) {
   // Data scraping and filtering
   // TODO: multiple queries to consider misspellings
   let data = await scrapeSubito(query.join("+"));
-  data = data.filter(obj => filterData(obj, query));
 
+  data = data.filter(obj => filterData(obj, query));
   // Price filters
   const avg = average(data);
+  console.log("Average Prices For Iphone 12: ",avg.toFixed(2));
   return data.filter(obj => filterPrices(obj, avg));
 }
 
@@ -34,7 +35,6 @@ function average(data) {
   for (const obj of data) {
     priceArr.push(obj.price);
   }
-  console.log(priceArr.reduce((a, b) => a + b) / priceArr.length);
   return priceArr.reduce((a, b) => a + b) / priceArr.length;
 }
 
